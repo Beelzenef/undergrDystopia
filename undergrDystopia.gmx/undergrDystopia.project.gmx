@@ -19,6 +19,9 @@
   <objects name="objects">
     <object>objects\player</object>
   </objects>
+  <rooms name="rooms">
+    <room>rooms\rm_Inicio</room>
+  </rooms>
   <help>
     <rtf>help.rtf</rtf>
   </help>
