@@ -6,7 +6,7 @@
   <depth>0</depth>
   <persistent>0</persistent>
   <parentName>&lt;undefined&gt;</parentName>
-  <maskName>spr_mask_player</maskName>
+  <maskName>spr_player_static</maskName>
   <events>
     <event eventtype="0" enumb="0">
       <action>
@@ -27,7 +27,9 @@
             <kind>1</kind>
             <string>/// Inicializacion
 
-velocidad = 4;
+velocidad = 5;
+velocidadHor = 0;
+velocidadVer = 0;
 </string>
           </argument>
         </arguments>
@@ -52,22 +54,44 @@ velocidad = 4;
             <kind>1</kind>
             <string>/// Movimientos
 
+// Control de teclas
 teclaIz = keyboard_check(vk_left);
 teclaDer = keyboard_check(vk_right);
 teclaArr = keyboard_check(vk_up);
 teclaAbajo = keyboard_check(vk_down);
 
 if (teclaArr)
-    y -= velocidad;
+    velocidadVer = -velocidad;
 
 if (teclaAbajo)
-    y += velocidad;
+    velocidadVer = velocidad;
 
 if (teclaDer)
-    x += velocidad;
+    velocidadHor = velocidad;
 
 if (teclaIz)
-    x -= velocidad;
+    velocidadHor = -velocidad;
+
+// Control de friccion
+if (!teclaIz &amp;&amp; !teclaDer)
+    velocidadHor = 0;
+if (!teclaArr &amp;&amp; !teclaAbajo)
+    velocidadVer = 0;
+
+// Movimiento de personaje y control de colisiones
+if (place_meeting(x + velocidadHor, y, obj_solido)) {
+    while (!place_meeting(x + sign(velocidadHor), y, obj_solido))
+        x += sign(velocidadHor);
+    velocidadHor = 0;
+}
+x += velocidadHor;
+
+if (place_meeting(x, y + velocidadVer, obj_solido)) {
+    while (!place_meeting(x + sign(velocidadVer), y, obj_solido))
+        y += sign(velocidadVer);
+    velocidadVer = 0;
+}
+y += velocidadVer;
 </string>
           </argument>
         </arguments>

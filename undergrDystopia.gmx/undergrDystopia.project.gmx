@@ -22,7 +22,7 @@
   <backgrounds name="background"/>
   <paths name="paths"/>
   <objects name="objects">
-    <object>objects\player</object>
+    <object>objects\obj_player</object>
     <objects name="niveles">
       <object>objects\obj_solido</object>
       <object>objects\obj_tierra</object>
